@@ -82,6 +82,9 @@
             <%= l @event.held_at, format: :short %>
           </h4>
           <hr />
+          <% if @event.only_woman? %>
+            <p class="bg-secondary text-center p-1 text-white rounded small">女性限定</p>
+          <% end %>
           <div class="text-center">
             <% if logged_in? %>
               <% if !current_user.owner?(@event) %>
@@ -93,12 +96,14 @@
                               data: { confirm: 'キャンセルします' }
                   %>
                 <% else %>
-                  <%= link_to 'このもくもく会に参加する',
-                              event_attendance_url(@event),
-                              class: 'btn btn-primary',
-                              method: :post,
-                              data: { confirm: '申し込みます' }
-                  %>
+                  <% if current_user.can_attend_event?(@event) %>
+                    <%= link_to 'このもくもく会に参加する',
+                                event_attendance_url(@event),
+                                class: 'btn btn-primary',
+                                method: :post,
+                                data: { confirm: '申し込みます' }
+                    %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>

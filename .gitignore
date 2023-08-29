@@ -40,3 +40,9 @@ yarn-debug.log*
 .yarn-integrity
 
 /config/credentials/production.key
+
+.DS_Store
+database_yml
+vendor/bundle
+/.bundle
+.vscode/
